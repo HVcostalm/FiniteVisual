@@ -7,21 +7,20 @@ public class AutomatoFinitoDeterministico {
 	private List<Estado> estados;
     private Estado estadoInicial;
     private List<Transicao> transicoes;
-    private List<Alfabeto> alfabeto;
-	
+    private List<Character> alfabeto;
     
-    
-    public AutomatoFinitoDeterministico() {
-	}
-
-	public AutomatoFinitoDeterministico(String nome, List<Estado> estados, Estado estadoInicial, List<Transicao> transicoes, List<Alfabeto> alfabeto) {
+    public AutomatoFinitoDeterministico(String nome, List<Estado> estados, Estado estadoInicial, List<Transicao> transicoes, List<Character> alfabeto) {
         this.nome = nome;
     	this.estados = estados;
         this.estadoInicial = estadoInicial;
         this.transicoes = transicoes;
         this.alfabeto = alfabeto;
     }
-
+    
+    public AutomatoFinitoDeterministico() {
+    	
+    }
+    
     public boolean verificaCadeia(String cadeia) {
         Estado estadoAtual = estadoInicial;
         for (char simbolo : cadeia.toCharArray()) {
@@ -40,7 +39,7 @@ public class AutomatoFinitoDeterministico {
         return null;
     }
     
-    public String getNome() {
+	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
@@ -64,12 +63,14 @@ public class AutomatoFinitoDeterministico {
 	public void setTransicoes(List<Transicao> transicoes) {
 		this.transicoes = transicoes;
 	}
-	public List<Alfabeto> getAlfabeto() {
+	public List<Character> getAlfabeto() {
 		return alfabeto;
 	}
-	public void setAlfabeto(List<Alfabeto> alfabeto) {
+	public void setAlfabeto(List<Character> alfabeto) {
 		this.alfabeto = alfabeto;
 	}
+
+    
     
 	
 }

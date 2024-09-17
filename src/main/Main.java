@@ -7,7 +7,6 @@ import java.util.Scanner;
 import model.AutomatoFinitoDeterministico;
 import model.Estado;
 import model.Transicao;
-import model.Alfabeto;
 
 public class Main {
 	public static void main(String[] args) {
@@ -41,17 +40,15 @@ public class Main {
 		}while(opcao!=4);
 		
 		/*
-		Estado q0 = new Estado("q0", false);
+		// Exemplo simples
+        Estado q0 = new Estado("q0", false);
         Estado q1 = new Estado("q1", true);
-        
-        Alfabeto simboloA = new Alfabeto("a");
-        Alfabeto simboloB = new Alfabeto("b");
         
         List<Estado> estados = Arrays.asList(q0, q1);
         List<Transicao> transicoes = Arrays.asList(new Transicao(q0, 'a', q1), new Transicao(q1, 'b', q0));
-        List<Alfabeto> alfabeto = Arrays.asList(simboloA, simboloB);
+        List<Character> alfabeto = Arrays.asList('a', 'b');
         
-        AutomatoFinitoDeterministico dfa = new AutomatoFinitoDeterministico("teste 1",estados, q0, transicoes, alfabeto);
+        AutomatoDFA dfa = new AutomatoDFA(estados, q0, transicoes, alfabeto);
         
         System.out.println(dfa.verificaCadeia("ab")); // false
         System.out.println(dfa.verificaCadeia("a")); // true
