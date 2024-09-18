@@ -30,5 +30,13 @@ public class Transicao {
 	public void setEstadoDestino(Estado estadoDestino) {
 		this.estadoDestino = estadoDestino;
 	}
+
+	@Override
+	public String toString() {
+		return "Transicao [estadoAtual=" + estadoAtual + ", simbolo=" + simbolo + ", estadoDestino=" + estadoDestino
+				+ "]";
+	}
     
+	
+	
 }

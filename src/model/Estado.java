@@ -22,6 +22,11 @@ public class Estado {
 	public void setFinal(boolean isFinal) {
 		this.isFinal = isFinal;
 	}
+
+	@Override
+	public String toString() {
+		return "Estado [nome=" + nome + ", isFinal=" + isFinal + "]";
+	}
     
     
 }

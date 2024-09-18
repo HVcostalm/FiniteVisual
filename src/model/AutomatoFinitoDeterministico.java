@@ -70,7 +70,12 @@ public class AutomatoFinitoDeterministico {
 		this.alfabeto = alfabeto;
 	}
 
-    
-    
+	@Override
+	public String toString() {
+		return "AutomatoFinitoDeterministico [nome=" + nome + ", estados=" + estados + ", estadoInicial="
+				+ estadoInicial + ", transicoes=" + transicoes + ", alfabeto=" + alfabeto + "]";
+	}
+	
+	
 	
 }
