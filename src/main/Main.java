@@ -15,7 +15,6 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		List<AutomatoFinitoDeterministico> automatos = new ArrayList<>();
 		
-		/*
 		// Exemplo simples
         Estado q0 = new Estado("q0", false);
         Estado q1 = new Estado("q1", true);
@@ -25,15 +24,13 @@ public class Main {
         List<Character> alfabeto = Arrays.asList('a', 'b');
         
         AutomatoFinitoDeterministico automatoFinito = new AutomatoFinitoDeterministico("teste1", estados, q0, transicoes, alfabeto);
-        
-        System.out.println(dfa.verificaCadeia("ab")); // false
-        System.out.println(dfa.verificaCadeia("a")); // true
-        */
+        automatos.add(automatoFinito);
 		
 		do {
 			System.out.println("O que gostaria de fazer:\n1- Criar novo automato\n2- Ver histórico"
 					+ "\n3- Sair");
 			opcao = scan.nextInt();
+			scan.nextLine();
 			switch(opcao){
 			case 1:
 				System.out.println("\nIndo para tela de criacao de automato...");
@@ -41,7 +38,7 @@ public class Main {
 				break;
 			case 2:
 				System.out.println("\nIndo para tela do historico de automato...");
-				verHistoricoAutomato(automatos);
+				verHistoricoAutomato(automatos,scan);
 				break;
 			case 3:
 				System.out.println("\nDesligando simulador...");
@@ -58,9 +55,42 @@ public class Main {
 		scan.close();
 	}
 	
-	public static void verHistoricoAutomato(List<AutomatoFinitoDeterministico> automatos) {
-		System.out.println("Automato criados:\n");
-		System.out.println(automatos + "\n");
+	public static void verHistoricoAutomato(List<AutomatoFinitoDeterministico> automatos, Scanner scan) {
+		String resposta;
+		
+		if(automatos.isEmpty()) {
+			System.out.println("Nenhum automato criado");
+			System.out.println("Deseja criar um automato? [s/n]");
+			resposta = scan.nextLine();
+			if(resposta.equalsIgnoreCase("s"))
+				automatos.add(criarAutomato(scan));
+			else
+				System.out.println("Voltando para tela principal...");
+		}
+		else {
+			do {
+				System.out.println("Automato criados:\n");
+				System.out.println(automatos + "\n");
+				System.out.println("Digite o nome do automato caso queira verificar a cadeia, "
+						+ "se não responda 'n' ");
+				resposta = scan.nextLine();
+				
+				for(AutomatoFinitoDeterministico automato: automatos) {
+					if(automato.getNome().equalsIgnoreCase(resposta))
+					{
+						System.out.println("Indo para a tela de verificacao...");
+						verificarCadeia(automato, scan);
+					}
+				}
+				if(resposta.equalsIgnoreCase("n")) {
+					System.out.println("Voltando para tela principal...");
+				}
+				else
+					System.out.println("Resposta invalida!!!\nDigite novamente\n");
+			}while(!resposta.equalsIgnoreCase("n"));
+			
+		}
+		
 	}
 	
 	public static AutomatoFinitoDeterministico criarAutomato(Scanner scanner) {
@@ -85,7 +115,7 @@ public class Main {
 		
 		// Definição do nome do automato finito
 		System.out.println("Defina o nome deste automato: ");
-		nomeAutomato = scanner.next();
+		nomeAutomato = scanner.nextLine();
 		
 		// Criação do autômato
 		automatoFinito.setTransicoes(transicoes);
@@ -98,11 +128,11 @@ public class Main {
 		// Verificação de cadeia
 		System.out.println("\nDeseja vericar a cadeia do automato criado? [s/n]");
 		System.out.println("Obs: Se a sua resposta for nao irá voltar para a tela inicial\n");
-		resposta = scanner.next();
+		resposta = scanner.nextLine();
 		if(resposta.equalsIgnoreCase("s"))
 			verificarCadeia(automatoFinito, scanner);
 		else
-			return automatoFinito;
+			System.out.println("Voltando para tela principal...");
 		return automatoFinito;
 	}
 	
@@ -215,7 +245,7 @@ public class Main {
 				contadorTransicoes--;
 				continue;
 			}
-
+			
 			System.out.println("Digite o símbolo da transição:");
 			simbolo = scanner.nextLine().charAt(0);
 
@@ -241,6 +271,8 @@ public class Main {
 			}
 
 			transicoes.add(new Transicao(estadoOrigem, simbolo, estadoDestino));
+			estadoOrigem=null;
+			estadoDestino=null;
 		}
 		
 		return transicoes;
@@ -261,9 +293,11 @@ public class Main {
 			}
 			
 			System.out.println("Deseja continuar verificando cadeias? [s/n]");
-			respostaContinuar = scanner.next();
+			respostaContinuar = scanner.nextLine();
 			if(respostaContinuar.equalsIgnoreCase("n"))
 				continua=true;
+			else
+				System.out.println("Voltando para tela principal...");
 			
 		}while(!continua);
 		
