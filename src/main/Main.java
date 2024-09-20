@@ -34,7 +34,7 @@ public class Main {
 			switch(opcao){
 			case 1:
 				System.out.println("\nIndo para tela de criacao de automato...");
-				automatos.add(criarAutomato(scan));
+				automatos.add(criarAutomato(automatos,scan));
 				break;
 			case 2:
 				System.out.println("\nIndo para tela do historico de automato...");
@@ -63,7 +63,7 @@ public class Main {
 			System.out.println("Deseja criar um automato? [s/n]");
 			resposta = scan.nextLine();
 			if(resposta.equalsIgnoreCase("s"))
-				automatos.add(criarAutomato(scan));
+				automatos.add(criarAutomato(automatos,scan));
 			else
 				System.out.println("Voltando para tela principal...");
 		}
@@ -93,7 +93,7 @@ public class Main {
 		
 	}
 	
-	public static AutomatoFinitoDeterministico criarAutomato(Scanner scanner) {
+	public static AutomatoFinitoDeterministico criarAutomato(List<AutomatoFinitoDeterministico> automatos,Scanner scanner) {
 		AutomatoFinitoDeterministico automatoFinito = new AutomatoFinitoDeterministico();
 		String nomeAutomato, resposta;
 		Estado estadoInicial = null;
@@ -123,8 +123,9 @@ public class Main {
 		automatoFinito.setEstados(estados);
 		automatoFinito.setEstadoInicial(estadoInicial);
 		automatoFinito.setNome(nomeAutomato);
+		automatos.add(automatoFinito);
 		System.out.println("Automato criado com sucesso!!!");
-
+		
 		// Verificação de cadeia
 		System.out.println("\nDeseja vericar a cadeia do automato criado? [s/n]");
 		System.out.println("Obs: Se a sua resposta for nao irá voltar para a tela inicial\n");
