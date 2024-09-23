@@ -1,22 +1,22 @@
 package model;
 
 public class Transicao {
-	private Estado estadoAtual;
+	private Estado estadoOrigem;
     private char simbolo;
     private Estado estadoDestino;
     
 	public Transicao(Estado estadoAtual, char simbolo, Estado estadoDestino) {
 		super();
-		this.estadoAtual = estadoAtual;
+		this.estadoOrigem = estadoAtual;
 		this.simbolo = simbolo;
 		this.estadoDestino = estadoDestino;
 	}
 	
-	public Estado getEstadoAtual() {
-		return estadoAtual;
+	public Estado getEstadoOrigem() {
+		return estadoOrigem;
 	}
-	public void setEstadoAtual(Estado estadoAtual) {
-		this.estadoAtual = estadoAtual;
+	public void setEstadoOrigem(Estado estadoOrigem) {
+		this.estadoOrigem = estadoOrigem;
 	}
 	public char getSimbolo() {
 		return simbolo;
@@ -33,7 +33,7 @@ public class Transicao {
 
 	@Override
 	public String toString() {
-		return "Transicao [estadoAtual=" + estadoAtual + ", simbolo=" + simbolo + ", estadoDestino=" + estadoDestino
+		return "Transicao [estadoOrigem=" + estadoOrigem + ", simbolo=" + simbolo + ", estadoDestino=" + estadoDestino
 				+ "]";
 	}
     

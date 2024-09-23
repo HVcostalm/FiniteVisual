@@ -21,18 +21,33 @@ public class AutomatoFinitoDeterministico {
     	
     }
     
-    public boolean verificaCadeia(String cadeia) {
-        Estado estadoAtual = estadoInicial;
+    public boolean verificaCadeiaComCaminho(String cadeia, List<String> caminho) {
+        Estado estadoAtual = this.estadoInicial;
+        caminho.add(estadoAtual.getNome());
+
         for (char simbolo : cadeia.toCharArray()) {
-            estadoAtual = proximoEstado(estadoAtual, simbolo);
-            if (estadoAtual == null) return false;
+            boolean transicaoEncontrada = false;
+            
+            for (Transicao transicao : transicoes) {
+                if (transicao.getEstadoOrigem().equals(estadoAtual) && transicao.getSimbolo() == simbolo) {
+                    estadoAtual = transicao.getEstadoDestino();
+                    caminho.add(estadoAtual.getNome());
+                    transicaoEncontrada = true;
+                    break;
+                }
+            }
+
+            if (!transicaoEncontrada) {
+                return false;
+            }
         }
+
         return estadoAtual.isFinal();
     }
 
-    private Estado proximoEstado(Estado estadoAtual, char simbolo) {
+    private Estado proximoEstado(Estado estadoOrigem, char simbolo) {
         for (Transicao transicao : transicoes) {
-            if (transicao.getEstadoAtual().equals(estadoAtual) && transicao.getSimbolo() == simbolo) {
+            if (transicao.getEstadoOrigem().equals(estadoOrigem) && transicao.getSimbolo() == simbolo) {
                 return transicao.getEstadoDestino();
             }
         }

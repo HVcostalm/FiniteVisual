@@ -8,6 +8,7 @@ import java.util.Scanner;
 import model.AutomatoFinitoDeterministico;
 import model.Estado;
 import model.Transicao;
+import view.DiagramaEstados;
 
 public class Main {
 	public static void main(String[] args) {
@@ -34,7 +35,7 @@ public class Main {
 			switch(opcao){
 			case 1:
 				System.out.println("\nIndo para tela de criacao de automato...");
-				automatos.add(criarAutomato(automatos,scan));
+				automatos.add(criarAutomato(automatos, scan));
 				break;
 			case 2:
 				System.out.println("\nIndo para tela do historico de automato...");
@@ -79,6 +80,7 @@ public class Main {
 					if(automato.getNome().equalsIgnoreCase(resposta))
 					{
 						System.out.println("Indo para a tela de verificacao...");
+						exibirAutomato(automato);
 						verificarCadeia(automato, scan);
 					}
 				}
@@ -93,7 +95,7 @@ public class Main {
 		
 	}
 	
-	public static AutomatoFinitoDeterministico criarAutomato(List<AutomatoFinitoDeterministico> automatos,Scanner scanner) {
+	public static AutomatoFinitoDeterministico criarAutomato(List<AutomatoFinitoDeterministico> automatos ,Scanner scanner) {
 		AutomatoFinitoDeterministico automatoFinito = new AutomatoFinitoDeterministico();
 		String nomeAutomato, resposta;
 		Estado estadoInicial = null;
@@ -125,7 +127,7 @@ public class Main {
 		automatoFinito.setNome(nomeAutomato);
 		automatos.add(automatoFinito);
 		System.out.println("Automato criado com sucesso!!!");
-		
+
 		// Verificação de cadeia
 		System.out.println("\nDeseja vericar a cadeia do automato criado? [s/n]");
 		System.out.println("Obs: Se a sua resposta for nao irá voltar para a tela inicial\n");
@@ -282,16 +284,22 @@ public class Main {
 	public static void verificarCadeia(AutomatoFinitoDeterministico automatoFinito, Scanner scanner) {
 		boolean aceita, continua=false;
 		String respostaContinuar, cadeia;
-		
+		List<String> caminho = new ArrayList<>();
+				
 		do {
 			System.out.println("Digite a cadeia para verificar:");
 			cadeia = scanner.nextLine();
-			aceita = automatoFinito.verificaCadeia(cadeia);
+			
+			aceita = automatoFinito.verificaCadeiaComCaminho(cadeia, caminho);
+			
 			if (aceita) {
 				System.out.println("Cadeia aceita!");
 			} else {
 				System.out.println("Cadeia rejeitada!");
 			}
+			
+			// Exibir o caminho percorrido
+	        System.out.println("Caminho percorrido: " + String.join(" -> ", caminho));
 			
 			System.out.println("Deseja continuar verificando cadeias? [s/n]");
 			respostaContinuar = scanner.nextLine();
@@ -300,7 +308,29 @@ public class Main {
 			else
 				System.out.println("Voltando para tela principal...");
 			
+			caminho.removeAll(caminho);
+			
 		}while(!continua);
 		
 	}
+	
+	public static void exibirAutomato(AutomatoFinitoDeterministico automato) {
+	    System.out.println("Autômato: " + automato.getNome());
+	    System.out.println("Estados: ");
+	    for (Estado estado : automato.getEstados()) {
+	        System.out.print(estado.getNome() + (estado.isFinal() ? " (final)" : "") + " ");
+	    }
+	    System.out.println("\nEstado Inicial: " + automato.getEstadoInicial().getNome());
+	    System.out.println("Transições:");
+	    for (Transicao transicao : automato.getTransicoes()) {
+	        System.out.println(transicao.getEstadoOrigem().getNome() + " --" + transicao.getSimbolo() + "--> " 
+	            + transicao.getEstadoDestino().getNome());
+	    }
+	    System.out.println("------------------------------");
+
+	    // Chamar o diagrama gráfico
+	    DiagramaEstados.exibirAutomatoGrafico(automato.getEstados(), automato.getTransicoes());
+	}
+
+
 }
