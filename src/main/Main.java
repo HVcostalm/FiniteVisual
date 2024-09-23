@@ -26,6 +26,7 @@ public class Main {
         
         AutomatoFinitoDeterministico automatoFinito = new AutomatoFinitoDeterministico("teste1", estados, q0, transicoes, alfabeto);
         automatos.add(automatoFinito);
+        AutomatoFinitoDeterministico automato = new AutomatoFinitoDeterministico();
 		
 		do {
 			System.out.println("O que gostaria de fazer:\n1- Criar novo automato\n2- Ver histórico"
@@ -35,7 +36,9 @@ public class Main {
 			switch(opcao){
 			case 1:
 				System.out.println("\nIndo para tela de criacao de automato...");
-				automatos.add(criarAutomato(automatos, scan));
+				automato = criarAutomato(scan);
+				System.out.println(automato);
+				automatos.add(automato);
 				break;
 			case 2:
 				System.out.println("\nIndo para tela do historico de automato...");
@@ -64,14 +67,16 @@ public class Main {
 			System.out.println("Deseja criar um automato? [s/n]");
 			resposta = scan.nextLine();
 			if(resposta.equalsIgnoreCase("s"))
-				automatos.add(criarAutomato(automatos,scan));
+				automatos.add(criarAutomato(scan));
 			else
 				System.out.println("Voltando para tela principal...");
 		}
 		else {
 			do {
 				System.out.println("Automato criados:\n");
-				System.out.println(automatos + "\n");
+				for(AutomatoFinitoDeterministico automato: automatos){
+					exibirAutomato(automato);
+				}
 				System.out.println("Digite o nome do automato caso queira verificar a cadeia, "
 						+ "se não responda 'n' ");
 				resposta = scan.nextLine();
@@ -87,15 +92,14 @@ public class Main {
 				if(resposta.equalsIgnoreCase("n")) {
 					System.out.println("Voltando para tela principal...");
 				}
-				else
-					System.out.println("Resposta invalida!!!\nDigite novamente\n");
+
 			}while(!resposta.equalsIgnoreCase("n"));
 			
 		}
 		
 	}
 	
-	public static AutomatoFinitoDeterministico criarAutomato(List<AutomatoFinitoDeterministico> automatos ,Scanner scanner) {
+	public static AutomatoFinitoDeterministico criarAutomato(Scanner scanner) {
 		AutomatoFinitoDeterministico automatoFinito = new AutomatoFinitoDeterministico();
 		String nomeAutomato, resposta;
 		Estado estadoInicial = null;
@@ -125,15 +129,16 @@ public class Main {
 		automatoFinito.setEstados(estados);
 		automatoFinito.setEstadoInicial(estadoInicial);
 		automatoFinito.setNome(nomeAutomato);
-		automatos.add(automatoFinito);
 		System.out.println("Automato criado com sucesso!!!");
 
 		// Verificação de cadeia
 		System.out.println("\nDeseja vericar a cadeia do automato criado? [s/n]");
 		System.out.println("Obs: Se a sua resposta for nao irá voltar para a tela inicial\n");
 		resposta = scanner.nextLine();
-		if(resposta.equalsIgnoreCase("s"))
+		if(resposta.equalsIgnoreCase("s")){
+			exibirAutomato(automatoFinito);
 			verificarCadeia(automatoFinito, scanner);
+		}
 		else
 			System.out.println("Voltando para tela principal...");
 		return automatoFinito;
@@ -305,8 +310,6 @@ public class Main {
 			respostaContinuar = scanner.nextLine();
 			if(respostaContinuar.equalsIgnoreCase("n"))
 				continua=true;
-			else
-				System.out.println("Voltando para tela principal...");
 			
 			caminho.removeAll(caminho);
 			
@@ -315,21 +318,21 @@ public class Main {
 	}
 	
 	public static void exibirAutomato(AutomatoFinitoDeterministico automato) {
-	    System.out.println("Autômato: " + automato.getNome());
+	    System.out.println("\nAutômato: " + automato.getNome() + "\n");
 	    System.out.println("Estados: ");
 	    for (Estado estado : automato.getEstados()) {
-	        System.out.print(estado.getNome() + (estado.isFinal() ? " (final)" : "") + " ");
+	        System.out.print(estado.getNome() + (estado.isFinal() ? " (final)" : "") + "\n");
 	    }
-	    System.out.println("\nEstado Inicial: " + automato.getEstadoInicial().getNome());
+	    System.out.println("\nEstado Inicial: " + automato.getEstadoInicial().getNome() + "\n");
 	    System.out.println("Transições:");
 	    for (Transicao transicao : automato.getTransicoes()) {
 	        System.out.println(transicao.getEstadoOrigem().getNome() + " --" + transicao.getSimbolo() + "--> " 
 	            + transicao.getEstadoDestino().getNome());
 	    }
-	    System.out.println("------------------------------");
+	    System.out.println("------------------------------\n");
 
 	    // Chamar o diagrama gráfico
-	    DiagramaEstados.exibirAutomatoGrafico(automato.getEstados(), automato.getTransicoes());
+	    //DiagramaEstados.exibirAutomatoGrafico(automato.getEstados(), automato.getTransicoes());
 	}
 
 
