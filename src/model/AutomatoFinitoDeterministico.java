@@ -54,6 +54,22 @@ public class AutomatoFinitoDeterministico {
         return null;
     }
     
+    public void exibirAutomato() {
+	    System.out.println("Autômato: " + this.nome);
+	    System.out.println("Estados: ");
+	    for (Estado estado : this.estados) {
+	        System.out.print(estado.getNome() + (estado.isFinal() ? " (final)" : "") + "\n");
+	    }
+	    System.out.println("\nEstado Inicial: " + this.estadoInicial.getNome());
+	    System.out.println("Transições:");
+	    for (Transicao transicao : this.transicoes) {
+	        System.out.println(transicao.getEstadoOrigem().getNome() + " --" + transicao.getSimbolo() + "--> " 
+	            + transicao.getEstadoDestino().getNome());
+	    }
+	    System.out.println("------------------------------\n");
+	    
+	}
+    
 	public String getNome() {
 		return nome;
 	}
@@ -84,13 +100,6 @@ public class AutomatoFinitoDeterministico {
 	public void setAlfabeto(List<Character> alfabeto) {
 		this.alfabeto = alfabeto;
 	}
-
-	@Override
-	public String toString() {
-		return "AutomatoFinitoDeterministico [nome=" + nome + ", estados=" + estados + ", estadoInicial="
-				+ estadoInicial + ", transicoes=" + transicoes + ", alfabeto=" + alfabeto + "]";
-	}
-	
-	
+		
 	
 }
