@@ -33,8 +33,7 @@ public class Transicao {
 
 	@Override
 	public String toString() {
-		return "Transicao [estadoOrigem=" + estadoOrigem + ", simbolo=" + simbolo + ", estadoDestino=" + estadoDestino
-				+ "]";
+		return estadoOrigem.getNome() + " --" + simbolo + "--> " + estadoDestino.getNome();
 	}
     
 	

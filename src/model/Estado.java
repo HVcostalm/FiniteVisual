@@ -25,7 +25,7 @@ public class Estado {
 
 	@Override
 	public String toString() {
-		return "Estado [nome=" + nome + ", isFinal=" + isFinal + "]";
+		return this.nome;
 	}
     
     

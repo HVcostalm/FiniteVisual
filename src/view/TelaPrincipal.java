@@ -4,17 +4,38 @@
  */
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JOptionPane;
+import model.AutomatoFinitoDeterministico;
+import model.Estado;
+import model.Transicao;
+
 /**
  *
  * @author heito
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
+    private List<AutomatoFinitoDeterministico> automatos;
+
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
+        
+        Estado q0 = new Estado("q0", false);
+        Estado q1 = new Estado("q1", true);
+        List<Estado> estados = Arrays.asList(q0, q1);
+        List<Transicao> transicoes = Arrays.asList(new Transicao(q0, 'a', q1), new Transicao(q1, 'b', q0), new Transicao(q1, 'a', q1), new Transicao(q0, 'b', q0));
+        List<Character> alfabeto = Arrays.asList('a', 'b');
+        
+        AutomatoFinitoDeterministico automatoFinito = new AutomatoFinitoDeterministico("teste1", estados, q0, transicoes, alfabeto);
+        automatos = new ArrayList<>();
+        automatos.add(automatoFinito);
+        
     }
 
     /**
@@ -26,30 +47,134 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        botaoCriarAutomato = new javax.swing.JButton();
+        botaoVerHistorico = new javax.swing.JButton();
+        botaoSair = new javax.swing.JButton();
+        botaoSobre = new javax.swing.JButton();
+        mensagemBoasVindas1 = new javax.swing.JLabel();
+        mensagemBoasVindas2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fundoTelaPrincipal.png"))); // NOI18N
-        jLabel1.setText("fundoTelaPrincipal");
+        botaoCriarAutomato.setBackground(new java.awt.Color(0, 0, 255));
+        botaoCriarAutomato.setText("CRIAR AUTOMATO");
+        botaoCriarAutomato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCriarAutomatoActionPerformed(evt);
+            }
+        });
+
+        botaoVerHistorico.setBackground(new java.awt.Color(0, 255, 0));
+        botaoVerHistorico.setText("VISUALIZAR HISTÓRICO");
+        botaoVerHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVerHistoricoActionPerformed(evt);
+            }
+        });
+
+        botaoSair.setBackground(new java.awt.Color(255, 0, 0));
+        botaoSair.setText("SAIR");
+        botaoSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSairActionPerformed(evt);
+            }
+        });
+
+        botaoSobre.setBackground(new java.awt.Color(255, 255, 51));
+        botaoSobre.setText("SOBRE");
+        botaoSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoSobreActionPerformed(evt);
+            }
+        });
+
+        mensagemBoasVindas1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        mensagemBoasVindas1.setText("Bem-vindo ao FiniteVisual");
+
+        mensagemBoasVindas2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        mensagemBoasVindas2.setText("Simulador de Automatos Finitos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botaoSair)
+                            .addComponent(botaoSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(92, 92, 92)
+                                .addComponent(botaoCriarAutomato, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(95, 95, 95)
+                                .addComponent(botaoVerHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(mensagemBoasVindas2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mensagemBoasVindas1))))
+                        .addGap(0, 94, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(botaoSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(mensagemBoasVindas1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(mensagemBoasVindas2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCriarAutomato, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoVerHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(118, 118, 118)
+                .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void sobre(){
+        JOptionPane.showMessageDialog(null,"Projeto desenvolvido para a disciplina de Teoria da Computação"
+                + "\nDesenvolvido por: Heitor Vinicius");
+    }
+    
+    private void cancelar() {
+        Object[] opcao = {"Sim", "Não"};
+        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente sair?", "Aviso",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
+        if (opcaoSelecionada == 0) {
+            this.dispose();
+        }
+    }
+    
+    private void botaoSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSobreActionPerformed
+        // TODO add your handling code here:
+        sobre();
+    }//GEN-LAST:event_botaoSobreActionPerformed
+
+    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
+        // TODO add your handling code here:
+        cancelar();
+    }//GEN-LAST:event_botaoSairActionPerformed
+
+    private void botaoCriarAutomatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarAutomatoActionPerformed
+        // TODO add your handling code here:
+        TelaCriarAutomato telaCriarAutomato = new TelaCriarAutomato(automatos);
+        telaCriarAutomato.setVisible(true);
+    }//GEN-LAST:event_botaoCriarAutomatoActionPerformed
+
+    private void botaoVerHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerHistoricoActionPerformed
+        // TODO add your handling code here:
+        TelaVerHistorico telaVerHistorico = new TelaVerHistorico(automatos);
+        telaVerHistorico.setVisible(true);
+    }//GEN-LAST:event_botaoVerHistoricoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -87,6 +212,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton botaoCriarAutomato;
+    private javax.swing.JButton botaoSair;
+    private javax.swing.JButton botaoSobre;
+    private javax.swing.JButton botaoVerHistorico;
+    private javax.swing.JLabel mensagemBoasVindas1;
+    private javax.swing.JLabel mensagemBoasVindas2;
     // End of variables declaration//GEN-END:variables
 }
