@@ -25,7 +25,7 @@ public class Estado {
 
 	@Override
 	public String toString() {
-		return this.nome;
+		return this.getNome() + (this.isFinal() ? " (final)" : "");
 	}
     
     

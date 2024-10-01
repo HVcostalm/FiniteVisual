@@ -4,15 +4,33 @@
  */
 package view;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import model.AutomatoFinitoDeterministico;
+import model.Estado;
+import model.Transicao;
+
 /**
  *
  * @author heito
  */
 public class TelaVerificarCadeia extends javax.swing.JFrame {
-
+    private List<AutomatoFinitoDeterministico> automatosRecebidos;
+    private AutomatoFinitoDeterministico automatoRecebido = new AutomatoFinitoDeterministico();
+    private String verificarVazioCadeia;
+    
     /**
      * Creates new form TelaVerificarCadeia
      */
+    public TelaVerificarCadeia(List<AutomatoFinitoDeterministico> automatos, AutomatoFinitoDeterministico automato) {
+        this.automatosRecebidos = automatos;
+        this.automatoRecebido = automato;
+        initComponents();
+        mostrarAutomato();
+    }
+    
     public TelaVerificarCadeia() {
         initComponents();
     }
@@ -26,21 +44,261 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
+        jPanel1 = new javax.swing.JPanel();
+        jLabelNomeAutomato = new javax.swing.JLabel();
+        jLabelEstadosCriados = new javax.swing.JLabel();
+        jLabelTodosEstados = new javax.swing.JLabel();
+        jLabelMensagemEstadoInicial = new javax.swing.JLabel();
+        jLabelEstadoInicial = new javax.swing.JLabel();
+        jLabelMensagemAlfabeto = new javax.swing.JLabel();
+        jLabelAlfabeto = new javax.swing.JLabel();
+        jLabelTransicoes = new javax.swing.JLabel();
+        jLabelTodasTransicoes = new javax.swing.JLabel();
+        jLabelMensagemDigitarCadeia = new javax.swing.JLabel();
+        jLabelVerificarCadeia = new javax.swing.JLabel();
+        jLabelCaminhoCadeia = new javax.swing.JLabel();
+        botaoVerificarCadeia = new javax.swing.JButton();
+        botaoVoltarTelaPrincipal = new javax.swing.JButton();
+        txtCadeia = new javax.swing.JTextField();
+        jLabelMensagemCaminhoPercorrido = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabelNomeAutomato.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelNomeAutomato.setText("jLabel1");
+
+        jLabelEstadosCriados.setText("Estados");
+
+        jLabelTodosEstados.setText("jLabel3");
+
+        jLabelMensagemEstadoInicial.setText("Estado Inicial");
+
+        jLabelEstadoInicial.setText("jLabel5");
+
+        jLabelMensagemAlfabeto.setText("Alfabeto");
+
+        jLabelAlfabeto.setText("jLabel7");
+
+        jLabelTransicoes.setText("Transições");
+
+        jLabelTodasTransicoes.setText("jLabel9");
+
+        jLabelMensagemDigitarCadeia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelMensagemDigitarCadeia.setText("Digite a cadeia para verificar:");
+
+        botaoVerificarCadeia.setText("Verificar Cadeia");
+        botaoVerificarCadeia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVerificarCadeiaActionPerformed(evt);
+            }
+        });
+
+        botaoVoltarTelaPrincipal.setText("Voltar Tela Principal");
+        botaoVoltarTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltarTelaPrincipalActionPerformed(evt);
+            }
+        });
+
+        txtCadeia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCadeiaKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelTransicoes)
+                            .addComponent(jLabelMensagemEstadoInicial)
+                            .addComponent(jLabelEstadosCriados))
+                        .addGap(240, 240, 240))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelTodasTransicoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelAlfabeto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelEstadoInicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelMensagemAlfabeto)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabelTodosEstados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelNomeAutomato, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(56, 56, 56)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabelVerificarCadeia)
+                        .addGap(258, 258, 258))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botaoVerificarCadeia)
+                                .addGap(18, 18, 18)
+                                .addComponent(botaoVoltarTelaPrincipal))
+                            .addComponent(jLabelMensagemDigitarCadeia)
+                            .addComponent(txtCadeia, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelMensagemCaminhoPercorrido)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelCaminhoCadeia)
+                                .addGap(66, 66, 66)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabelNomeAutomato)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelEstadosCriados, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabelVerificarCadeia)
+                                .addGap(41, 41, 41)
+                                .addComponent(jLabelMensagemCaminhoPercorrido)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelTodosEstados, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelCaminhoCadeia))
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabelMensagemEstadoInicial)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelEstadoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelMensagemDigitarCadeia))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabelMensagemAlfabeto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelAlfabeto, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(txtCadeia, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabelTransicoes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelTodasTransicoes, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(32, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoVerificarCadeia)
+                            .addComponent(botaoVoltarTelaPrincipal))
+                        .addGap(57, 57, 57))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void mostrarAutomato(){
+        jLabelNomeAutomato.setText(automatoRecebido.getNome());
+        jLabelAlfabeto.setText(automatoRecebido.getAlfabeto().toString());
+        jLabelTodosEstados.setText(automatoRecebido.getEstados().toString());
+        jLabelEstadoInicial.setText(automatoRecebido.getEstadoInicial().getNome());
+        jLabelTodasTransicoes.setText(automatoRecebido.getTransicoes().toString());
+    }
+    
+    private void voltarTelaPrincipal(){
+        Object[] opcao = {"Sim", "Não"};
+        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente voltar para tela principal?", "Aviso",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
+        if (opcaoSelecionada == 0) {
+            TelaPrincipal telaPrincipal = new TelaPrincipal(automatosRecebidos);
+            telaPrincipal.setVisible(true);
+            this.dispose();
+        }
+    }
+    
+    private void verificarCadeia(){
+        verificarVazioCadeia = txtCadeia.getText();
+        if(verificarVazioCadeia.equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(null, "Campo Vazio!!! Digite uma cadeia para ser verificada");
+        }
+        else{
+            boolean aceita, cadeiaValida = true;
+            String cadeia=verificarVazioCadeia;
+            List<String> caminho = new ArrayList<>();
+            
+            aceita = automatoRecebido.verificaCadeiaComCaminho(cadeia, caminho);
+            if (aceita) {
+                jLabelVerificarCadeia.setText("Cadeia aceita!");
+            } else {
+                for (char cadeiaVerificarValidade : cadeia.toCharArray()) {
+                    if (!automatoRecebido.getAlfabeto().contains(cadeiaVerificarValidade)) {
+                        cadeiaValida = false;
+                        break;
+                    }
+                }
+                if (cadeiaValida) {
+                    jLabelVerificarCadeia.setText("Cadeia rejeitada!");
+                } else {
+                    jLabelVerificarCadeia.setText("Cadeia inexistente no alfabeto!");
+                }
+            }
+            
+            jLabelMensagemCaminhoPercorrido.setText("Caminho percorrido:");
+            jLabelCaminhoCadeia.setText(String.join(" -> ", caminho));
+            
+            caminho.removeAll(caminho);
+            cadeiaValida = true;
+            txtCadeia.setText("");
+        }
+    }
+    
+    private void botaoVoltarTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaPrincipalActionPerformed
+        // TODO add your handling code here:
+        voltarTelaPrincipal();
+    }//GEN-LAST:event_botaoVoltarTelaPrincipalActionPerformed
+
+    private void botaoVerificarCadeiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerificarCadeiaActionPerformed
+        // TODO add your handling code here:
+        verificarCadeia();
+    }//GEN-LAST:event_botaoVerificarCadeiaActionPerformed
+
+    private void txtCadeiaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCadeiaKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            verificarCadeia();
+        }
+    }//GEN-LAST:event_txtCadeiaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -78,5 +336,24 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoVerificarCadeia;
+    private javax.swing.JButton botaoVoltarTelaPrincipal;
+    private javax.swing.JLabel jLabelAlfabeto;
+    private javax.swing.JLabel jLabelCaminhoCadeia;
+    private javax.swing.JLabel jLabelEstadoInicial;
+    private javax.swing.JLabel jLabelEstadosCriados;
+    private javax.swing.JLabel jLabelMensagemAlfabeto;
+    private javax.swing.JLabel jLabelMensagemCaminhoPercorrido;
+    private javax.swing.JLabel jLabelMensagemDigitarCadeia;
+    private javax.swing.JLabel jLabelMensagemEstadoInicial;
+    private javax.swing.JLabel jLabelNomeAutomato;
+    private javax.swing.JLabel jLabelTodasTransicoes;
+    private javax.swing.JLabel jLabelTodosEstados;
+    private javax.swing.JLabel jLabelTransicoes;
+    private javax.swing.JLabel jLabelVerificarCadeia;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JTextField txtCadeia;
     // End of variables declaration//GEN-END:variables
 }

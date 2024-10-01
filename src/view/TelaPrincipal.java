@@ -23,6 +23,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form TelaPrincipal
      */
+    public TelaPrincipal(List<AutomatoFinitoDeterministico> automatos) {
+        this.automatos = automatos;
+        initComponents();
+    }
+    
     public TelaPrincipal() {
         initComponents();
         
@@ -32,10 +37,57 @@ public class TelaPrincipal extends javax.swing.JFrame {
         List<Transicao> transicoes = Arrays.asList(new Transicao(q0, 'a', q1), new Transicao(q1, 'b', q0), new Transicao(q1, 'a', q1), new Transicao(q0, 'b', q0));
         List<Character> alfabeto = Arrays.asList('a', 'b');
         
-        AutomatoFinitoDeterministico automatoFinito = new AutomatoFinitoDeterministico("teste1", estados, q0, transicoes, alfabeto);
+        AutomatoFinitoDeterministico automatoFinito = new AutomatoFinitoDeterministico("TerminaComA", estados, q0, transicoes, alfabeto);
         automatos = new ArrayList<>();
         automatos.add(automatoFinito);
         
+        Estado estado1 = new Estado("q0", true);   // Estado inicial e de aceitação
+        Estado estado2 = new Estado("q1", false);  // Estado intermediário
+        List<Estado> estados2 = Arrays.asList(estado1, estado2);
+
+        List<Transicao> transicoes2 = Arrays.asList(
+                new Transicao(estado1, 'a', estado2),
+                new Transicao(estado1, 'b', estado1),
+                new Transicao(estado2, 'a', estado1),
+                new Transicao(estado2, 'b', estado2)
+        );
+        List<Character> alfabeto2 = Arrays.asList('a', 'b');
+
+        AutomatoFinitoDeterministico automatoFinitoParA = new AutomatoFinitoDeterministico(
+                "ParDeAs",
+                estados2,
+                estado2,
+                transicoes2,
+                alfabeto2
+        );
+        automatos.add(automatoFinitoParA);
+        
+        Estado estado3 = new Estado("q0", false);  // Estado inicial
+        Estado estado4 = new Estado("q1", false);  // Último símbolo foi 'a'
+        Estado estado5 = new Estado("q2", true);   // Estado de aceitação (termina com 'ab')
+        List<Estado> estados3 = Arrays.asList(estado3, estado4, estado5);
+
+        List<Transicao> transicoes3 = Arrays.asList(
+                new Transicao(estado3, 'a', estado4),
+                new Transicao(estado3, 'b', estado3),
+                new Transicao(estado4, 'a', estado4),
+                new Transicao(estado4, 'b', estado5),
+                new Transicao(estado5, 'a', estado4),
+                new Transicao(estado5, 'b', estado3)
+        );
+
+        List<Character> alfabeto3 = Arrays.asList('a', 'b');
+
+        AutomatoFinitoDeterministico automatoFinitoTerminaAB = new AutomatoFinitoDeterministico(
+                "TerminaComAB",
+                estados3,
+                estado3,
+                transicoes3,
+                alfabeto3
+        );
+
+        automatos.add(automatoFinitoTerminaAB);
+
     }
 
     /**
@@ -72,7 +124,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        botaoSair.setBackground(new java.awt.Color(255, 0, 0));
         botaoSair.setText("SAIR");
         botaoSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +131,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        botaoSobre.setBackground(new java.awt.Color(255, 255, 51));
         botaoSobre.setText("SOBRE");
         botaoSobre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +195,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 + "\nDesenvolvido por: Heitor Vinicius");
     }
     
-    private void cancelar() {
+    private void sair() {
         Object[] opcao = {"Sim", "Não"};
         int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente sair?", "Aviso",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
@@ -154,6 +204,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
     
+    
+    
     private void botaoSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSobreActionPerformed
         // TODO add your handling code here:
         sobre();
@@ -161,19 +213,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
         // TODO add your handling code here:
-        cancelar();
+        sair();
     }//GEN-LAST:event_botaoSairActionPerformed
 
     private void botaoCriarAutomatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarAutomatoActionPerformed
         // TODO add your handling code here:
-        TelaCriarAutomato telaCriarAutomato = new TelaCriarAutomato(automatos);
-        telaCriarAutomato.setVisible(true);
+        TelaCriarAutomato_Nome telaCriarAutomatoNome = new TelaCriarAutomato_Nome(automatos);
+        telaCriarAutomatoNome.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botaoCriarAutomatoActionPerformed
 
     private void botaoVerHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerHistoricoActionPerformed
         // TODO add your handling code here:
         TelaVerHistorico telaVerHistorico = new TelaVerHistorico(automatos);
         telaVerHistorico.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botaoVerHistoricoActionPerformed
 
     /**

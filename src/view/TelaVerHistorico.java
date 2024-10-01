@@ -5,6 +5,7 @@
 package view;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.AutomatoFinitoDeterministico;
 
@@ -14,6 +15,7 @@ import model.AutomatoFinitoDeterministico;
  */
 public class TelaVerHistorico extends javax.swing.JFrame {
     private List<AutomatoFinitoDeterministico> automatosRecebidos;
+    private AutomatoFinitoDeterministico automato;
     private final DefaultTableModel modelo;
     /**
      * Creates new form TelaVerHistorico
@@ -43,39 +45,88 @@ public class TelaVerHistorico extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_automatos = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        AutomatosCriados = new javax.swing.JLabel();
+        botaoVoltarTelaPrincipal = new javax.swing.JButton();
+        botaoVerificarCadeiaAutomato = new javax.swing.JButton();
+        botaoCriarAutomato = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        tbl_automatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         tbl_automatos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tbl_automatosFocusGained(evt);
             }
         });
+        tbl_automatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_automatosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_automatos);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Automatos Criados:");
+        AutomatosCriados.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        AutomatosCriados.setText("Automatos Criados:");
+
+        botaoVoltarTelaPrincipal.setText("Voltar Tela Principal");
+        botaoVoltarTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltarTelaPrincipalActionPerformed(evt);
+            }
+        });
+
+        botaoVerificarCadeiaAutomato.setText("Verificar Cadeia");
+        botaoVerificarCadeiaAutomato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVerificarCadeiaAutomatoActionPerformed(evt);
+            }
+        });
+
+        botaoCriarAutomato.setText("Criar Automato");
+        botaoCriarAutomato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoCriarAutomatoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addGap(97, 97, 97)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botaoVoltarTelaPrincipal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoVerificarCadeiaAutomato)
+                        .addGap(84, 84, 84)
+                        .addComponent(botaoCriarAutomato))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(AutomatosCriados)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(jLabel1)
+                .addComponent(AutomatosCriados)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoVoltarTelaPrincipal)
+                    .addComponent(botaoVerificarCadeiaAutomato)
+                    .addComponent(botaoCriarAutomato))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -88,10 +139,62 @@ public class TelaVerHistorico extends javax.swing.JFrame {
         }
     }
     
+    private void escolherAutomatoVerificarCadeia(){
+        try {
+            String nomeAutomato = (String) tbl_automatos.getValueAt(tbl_automatos.getSelectedRow(), 0);
+            for (AutomatoFinitoDeterministico automato : automatosRecebidos) {
+                if (nomeAutomato.equalsIgnoreCase(automato.getNome())) {
+                    this.automato = automato;
+                    break;
+                }
+            }
+            TelaVerificarCadeia telaVerificarCadeia = new TelaVerificarCadeia(automatosRecebidos, automato);
+            telaVerificarCadeia.setVisible(true);
+            this.dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecionar uma linha da tabela");
+        }  
+    }
+    
+    private void voltarTelaPrincipal(){
+        Object[] opcao = {"Sim", "Não"};
+        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente voltar para tela principal?", "Aviso",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
+        if (opcaoSelecionada == 0) {
+            TelaPrincipal telaPrincipal = new TelaPrincipal(automatosRecebidos);
+            telaPrincipal.setVisible(true);
+            this.dispose();
+        }
+    }
+    
+    
+    
     private void tbl_automatosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tbl_automatosFocusGained
         // TODO add your handling code here:
         preencherTabela();
     }//GEN-LAST:event_tbl_automatosFocusGained
+
+    private void botaoVoltarTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaPrincipalActionPerformed
+        // TODO add your handling code here:
+        voltarTelaPrincipal();
+    }//GEN-LAST:event_botaoVoltarTelaPrincipalActionPerformed
+
+    private void botaoVerificarCadeiaAutomatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerificarCadeiaAutomatoActionPerformed
+        // TODO add your handling code here:
+        escolherAutomatoVerificarCadeia();
+    }//GEN-LAST:event_botaoVerificarCadeiaAutomatoActionPerformed
+
+    private void botaoCriarAutomatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCriarAutomatoActionPerformed
+        // TODO add your handling code here:
+        TelaCriarAutomato_Nome telaCriarAutomatoNome = new TelaCriarAutomato_Nome(automatosRecebidos);
+        telaCriarAutomatoNome.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_botaoCriarAutomatoActionPerformed
+
+    private void tbl_automatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_automatosMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tbl_automatosMouseClicked
 
     
     
@@ -131,7 +234,10 @@ public class TelaVerHistorico extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel AutomatosCriados;
+    private javax.swing.JButton botaoCriarAutomato;
+    private javax.swing.JButton botaoVerificarCadeiaAutomato;
+    private javax.swing.JButton botaoVoltarTelaPrincipal;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbl_automatos;
     // End of variables declaration//GEN-END:variables
