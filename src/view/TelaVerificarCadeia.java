@@ -62,7 +62,6 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
         botaoVoltarTelaPrincipal = new javax.swing.JButton();
         txtCadeia = new javax.swing.JTextField();
         jLabelMensagemCaminhoPercorrido = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,7 +105,7 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
             }
         });
 
-        botaoVoltarTelaPrincipal.setText("Voltar Tela Histórico");
+        botaoVoltarTelaPrincipal.setText("Ir para Histórico");
         botaoVoltarTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoVoltarTelaPrincipalActionPerformed(evt);
@@ -118,17 +117,6 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
                 txtCadeiaKeyPressed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,37 +155,28 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
                             .addComponent(jLabelMensagemDigitarCadeia)
                             .addComponent(txtCadeia, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelMensagemCaminhoPercorrido)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelCaminhoCadeia)
-                                .addGap(66, 66, 66)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabelCaminhoCadeia))
                         .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabelNomeAutomato)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabelNomeAutomato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelEstadosCriados, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabelVerificarCadeia)
-                                .addGap(41, 41, 41)
-                                .addComponent(jLabelMensagemCaminhoPercorrido)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelTodosEstados, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelCaminhoCadeia))
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabelMensagemEstadoInicial)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabelEstadosCriados, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabelVerificarCadeia)
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabelMensagemCaminhoPercorrido)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTodosEstados, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCaminhoCadeia))
+                .addGap(30, 30, 30)
+                .addComponent(jLabelMensagemEstadoInicial)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelEstadoInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMensagemDigitarCadeia))
@@ -238,7 +217,7 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
     
     private void voltarTelaHistorico(){
         Object[] opcao = {"Sim", "Não"};
-        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente voltar para tela de histórico?", "Aviso",
+        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente ir para o histórico?", "Aviso",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
         if (opcaoSelecionada == 0) {
             TelaVerHistorico telaVerHistorico = new TelaVerHistorico(automatosRecebidos);
@@ -351,7 +330,6 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTransicoes;
     private javax.swing.JLabel jLabelVerificarCadeia;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JTextField txtCadeia;
     // End of variables declaration//GEN-END:variables
