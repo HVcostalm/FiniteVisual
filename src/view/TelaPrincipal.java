@@ -41,26 +41,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
         automatos = new ArrayList<>();
         automatos.add(automatoFinito);
         
-        Estado estado1 = new Estado("q0", true);   // Estado inicial e de aceitação
-        Estado estado2 = new Estado("q1", false);  // Estado intermediário
-        List<Estado> estados2 = Arrays.asList(estado1, estado2);
+        Estado estado0 = new Estado("q0", false);  // Estado inicial
+        Estado estado1 = new Estado("q1", false);  // Último símbolo foi 'a'
+        Estado estado2 = new Estado("q2", true);   // Estado de aceitação (termina com 'ab')
+        List<Estado> estadosInicioA_FimB = Arrays.asList(estado0, estado1, estado2);
 
-        List<Transicao> transicoes2 = Arrays.asList(
-                new Transicao(estado1, 'a', estado2),
-                new Transicao(estado1, 'b', estado1),
+        List<Transicao> transicoesInicioAFimB = Arrays.asList(
+                new Transicao(estado0, 'a', estado1),
+                new Transicao(estado0, 'b', estado0), // Não pode começar com 'b'
+                new Transicao(estado1, 'a', estado1),
+                new Transicao(estado1, 'b', estado2),
                 new Transicao(estado2, 'a', estado1),
                 new Transicao(estado2, 'b', estado2)
         );
-        List<Character> alfabeto2 = Arrays.asList('a', 'b');
 
-        AutomatoFinitoDeterministico automatoFinitoParA = new AutomatoFinitoDeterministico(
-                "ParDeAs",
-                estados2,
-                estado2,
-                transicoes2,
-                alfabeto2
+        List<Character> alfabetoInicioAFimB = Arrays.asList('a', 'b');
+
+        AutomatoFinitoDeterministico ComecaComA_TerminaComB = new AutomatoFinitoDeterministico(
+                "ComecaComA_TerminaComB",
+                estadosInicioA_FimB,
+                estado0,
+                transicoesInicioAFimB,
+                alfabetoInicioAFimB
         );
-        automatos.add(automatoFinitoParA);
+        automatos.add(ComecaComA_TerminaComB);
         
         Estado estado3 = new Estado("q0", false);  // Estado inicial
         Estado estado4 = new Estado("q1", false);  // Último símbolo foi 'a'

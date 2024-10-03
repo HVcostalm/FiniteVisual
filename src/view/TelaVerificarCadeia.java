@@ -106,7 +106,7 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
             }
         });
 
-        botaoVoltarTelaPrincipal.setText("Voltar Tela Principal");
+        botaoVoltarTelaPrincipal.setText("Voltar Tela Histórico");
         botaoVoltarTelaPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoVoltarTelaPrincipalActionPerformed(evt);
@@ -236,13 +236,13 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
         jLabelTodasTransicoes.setText(automatoRecebido.getTransicoes().toString());
     }
     
-    private void voltarTelaPrincipal(){
+    private void voltarTelaHistorico(){
         Object[] opcao = {"Sim", "Não"};
-        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente voltar para tela principal?", "Aviso",
+        int opcaoSelecionada = JOptionPane.showOptionDialog(this, "Deseja realmente voltar para tela de histórico?", "Aviso",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, opcao, opcao[0]);
         if (opcaoSelecionada == 0) {
-            TelaPrincipal telaPrincipal = new TelaPrincipal(automatosRecebidos);
-            telaPrincipal.setVisible(true);
+            TelaVerHistorico telaVerHistorico = new TelaVerHistorico(automatosRecebidos);
+            telaVerHistorico.setVisible(true);
             this.dispose();
         }
     }
@@ -278,14 +278,13 @@ public class TelaVerificarCadeia extends javax.swing.JFrame {
             jLabelCaminhoCadeia.setText(String.join(" -> ", caminho));
             
             caminho.removeAll(caminho);
-            cadeiaValida = true;
             txtCadeia.setText("");
         }
     }
     
     private void botaoVoltarTelaPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaPrincipalActionPerformed
         // TODO add your handling code here:
-        voltarTelaPrincipal();
+        voltarTelaHistorico();
     }//GEN-LAST:event_botaoVoltarTelaPrincipalActionPerformed
 
     private void botaoVerificarCadeiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVerificarCadeiaActionPerformed

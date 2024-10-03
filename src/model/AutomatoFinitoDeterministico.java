@@ -46,15 +46,6 @@ public class AutomatoFinitoDeterministico {
         return estadoAtual.isFinal();
     }
 
-    private Estado proximoEstado(Estado estadoOrigem, char simbolo) {
-        for (Transicao transicao : transicoes) {
-            if (transicao.getEstadoOrigem().equals(estadoOrigem) && transicao.getSimbolo() == simbolo) {
-                return transicao.getEstadoDestino();
-            }
-        }
-        return null;
-    }
-
     public void exibirAutomato() {
         System.out.println("Autômato: " + this.nome);
         System.out.println("Estados: ");

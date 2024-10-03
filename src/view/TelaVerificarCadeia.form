@@ -234,7 +234,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botaoVoltarTelaPrincipal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Voltar Tela Principal"/>
+        <Property name="text" type="java.lang.String" value="Voltar Tela Hist&#xf3;rico"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoVoltarTelaPrincipalActionPerformed"/>

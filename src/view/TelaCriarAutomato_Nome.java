@@ -97,9 +97,8 @@ public class TelaCriarAutomato_Nome extends javax.swing.JFrame {
     private boolean verificarNomeExistente(){
         for (AutomatoFinitoDeterministico automato : automatosRecebidos) {
             if (automato.getNome().equalsIgnoreCase(verificarVazio)) {
-                break;
+                return false;
             }
-            return false;
         }
         return true;
     }
